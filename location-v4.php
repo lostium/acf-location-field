@@ -1,6 +1,6 @@
 <?php
 
-class acf_field_location extends acf_field
+class acf_field_place extends acf_field
 {
 	// vars
 	var $settings, // will hold info such as dir / path
@@ -19,14 +19,13 @@ class acf_field_location extends acf_field
 	function __construct()
 	{
 		// vars
-		$this->name = 'location-field';
-		$this->label = __('Location Map','acf-location-field');
+		$this->name = 'place-field';
+		$this->label = __('Place Map','acf-place-field');
 		$this->category = __('Content','acf');
 		$this->defaults = array(
 			'mapheight'	=>	'300',
 			'center' => '48.856614,2.3522219000000177',
-			'zoom'	=>	10,
-			'val'	=>	'address',
+			'zoom'	=>	10,			
 			'scrollwheel'	=>	1,
 			'mapTypeControl'	=>	1,
 			'streetViewControl'	=>	1,
@@ -65,7 +64,7 @@ class acf_field_location extends acf_field
 	{
 		// register acf scripts
 		//wp_register_script( 'acf-input-location', $this->settings['dir'] . 'js/input.js', array('acf-input'), $this->settings['version'] );
-		wp_register_style( 'acf-input-location', $this->settings['dir'] . 'css/input.css', array('acf-input'), $this->settings['version'] ); 
+		wp_register_style( 'acf-input-place', $this->settings['dir'] . 'css/input.css', array('acf-input'), $this->settings['version'] ); 
 		
 		
 		// scripts
@@ -75,7 +74,7 @@ class acf_field_location extends acf_field
 
 		// styles
 		wp_enqueue_style(array(
-			'acf-input-location',	
+			'acf-input-place',	
 		));
 		
 	}
@@ -95,7 +94,7 @@ class acf_field_location extends acf_field
 
 	function input_admin_head()
 	{
-		echo '<script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>';
+		echo '<script src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&region=es&language=es" type="text/javascript"></script>';
 	}
 	
 	
@@ -126,28 +125,8 @@ class acf_field_location extends acf_field
 		?>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e('Return Value','acf-location-field'); ?></label>
-	</td>
-	<td>
-		<?php
-		do_action('acf/create_field', array(
-			'type' => 'radio',
-			'name' => 'fields['.$key.'][val]',
-			'value' => $field['val'],
-			'layout' => 'horizontal',
-			'choices' => array(
-				'address' => __('Coordinates & Address', 'acf-location-field'),
-				'coordinates' => __('Coordinates', 'acf-location-field')
-			)
-		));
-		?>
-	</td>
-</tr>
-
-<tr class="field_option field_option_<?php echo $this->name; ?>">
-	<td class="label">
-		<label><?php _e('Map height','acf-location-field'); ?></label>
-		<p class="description"><?php _e('Height of the map. Minimum height is 150px','acf-location-field'); ?></p>
+		<label><?php _e('Map height','acf-place-field'); ?></label>
+		<p class="description"><?php _e('Height of the map. Minimum height is 150px','acf-place-field'); ?></p>
 	</td>
 	<td>
 		<?php
@@ -166,8 +145,8 @@ class acf_field_location extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e('Map center','acf-location-field'); ?></label>
-		<p class="description"><?php _e('Latitude and longitude to center the initial map','acf-location-field'); ?></p>
+		<label><?php _e('Map center','acf-place-field'); ?></label>
+		<p class="description"><?php _e('Latitude and longitude to center the initial map','acf-place-field'); ?></p>
 	</td>
 	<td>
 		<?php
@@ -181,7 +160,7 @@ class acf_field_location extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e('Map zoom','acf-location-field'); ?></label>
+		<label><?php _e('Map zoom','acf-place-field'); ?></label>
 		<p class="description"></p>
 	</td>
 	<td>
@@ -196,8 +175,8 @@ class acf_field_location extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e('Map Scrollwheel','acf-location-field'); ?></label>
-		<p class="description"><?php _e('Allows scrollwheel zooming on the map field','acf-location-field'); ?></p>
+		<label><?php _e('Map Scrollwheel','acf-place-field'); ?></label>
+		<p class="description"><?php _e('Allows scrollwheel zooming on the map field','acf-place-field'); ?></p>
 	</td>
 	<td>
 		<?php
@@ -207,8 +186,8 @@ class acf_field_location extends acf_field
 			'value' => $field['scrollwheel'],
 			'layout' => 'horizontal',
 			'choices' => array(
-				1 => __('Yes', 'acf-location-field'),
-				0 => __('No', 'acf-location-field')
+				1 => __('Yes', 'acf-place-field'),
+				0 => __('No', 'acf-place-field')
 			)
 		));
 		?>
@@ -216,8 +195,8 @@ class acf_field_location extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e('Map Type Control','acf-location-field'); ?></label>
-		<p class="description"><?php _e('Show controls for Map Type (Satellite, Hybrid)','acf-location-field'); ?></p>
+		<label><?php _e('Map Type Control','acf-place-field'); ?></label>
+		<p class="description"><?php _e('Show controls for Map Type (Satellite, Hybrid)','acf-place-field'); ?></p>
 	</td>
 	<td>
 		<?php
@@ -227,8 +206,8 @@ class acf_field_location extends acf_field
 			'value' => $field['mapTypeControl'],
 			'layout' => 'horizontal',
 			'choices' => array(
-				1 => __('Yes', 'acf-location-field'),
-				0 => __('No', 'acf-location-field')
+				1 => __('Yes', 'acf-place-field'),
+				0 => __('No', 'acf-place-field')
 			)
 		));
 		?>
@@ -236,8 +215,8 @@ class acf_field_location extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e('Street View Control','acf-location-field'); ?></label>
-		<p class="description"><?php _e('Show controls for Street View','acf-location-field'); ?></p>
+		<label><?php _e('Street View Control','acf-place-field'); ?></label>
+		<p class="description"><?php _e('Show controls for Street View','acf-place-field'); ?></p>
 	</td>
 	<td>
 		<?php
@@ -247,8 +226,8 @@ class acf_field_location extends acf_field
 			'value' => $field['streetViewControl'],
 			'layout' => 'horizontal',
 			'choices' => array(
-				1 => __('Yes', 'acf-location-field'),
-				0 => __('No', 'acf-location-field')
+				1 => __('Yes', 'acf-place-field'),
+				0 => __('No', 'acf-place-field')
 			)
 		));
 		?>
@@ -256,8 +235,8 @@ class acf_field_location extends acf_field
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e('Point Of Interest','acf-location-field'); ?></label>
-		<p class="description"><?php _e('Show places on the map','acf-location-field'); ?></p>
+		<label><?php _e('Point Of Interest','acf-place-field'); ?></label>
+		<p class="description"><?php _e('Show places on the map','acf-place-field'); ?></p>
 	</td>
 	<td>
 		<?php
@@ -267,8 +246,8 @@ class acf_field_location extends acf_field
 			'value' => $field['PointOfInterest'],
 			'layout' => 'horizontal',
 			'choices' => array(
-				1 => __('Yes', 'acf-location-field'),
-				0 => __('No', 'acf-location-field')
+				1 => __('Yes', 'acf-place-field'),
+				0 => __('No', 'acf-place-field')
 			)
 		));
 		?>
@@ -321,21 +300,69 @@ class acf_field_location extends acf_field
 		}
 		function dragdropMarker(){
 			google.maps.event.addListener(marker,'dragend',function(mapEvent){
-				coordinates = mapEvent.latLng.lat()+','+mapEvent.latLng.lng();locateByCoordinates(coordinates)})
+				coordinates = mapEvent.latLng.lat()+','+mapEvent.latLng.lng();
+                                locateByCoordinates(coordinates)})
 		}
-		function locateByAddress(address){
-			geocoder.geocode({'address':address},function(results,status){
-				if(status == google.maps.GeocoderStatus.OK){
-					addMarker(results[0].geometry.location,address);
-					coordinates = results[0].geometry.location.lat()+','+results[0].geometry.location.lng();
-					coordinatesAddressInput.value = address+'|'+coordinates;ddAddress.innerHTML=address;
-					ddCoordinates.innerHTML = coordinates
-				}
-				else{
-					alert("<?php _e("This address could not be found: ",'acf-location-field');?>"+status)
-				}
-			})
-		}
+		
+                function locateByPlace(place)
+                {
+                    // Send over the address to get coordinates
+                    places.textSearch({'query': place}, function(results, status)
+                    {
+                        // If Google has a result
+                        if (status == google.maps.places.PlacesServiceStatus.OK)
+                        {
+                            places.getDetails({reference: results[0].reference}, function(place, status) {
+                                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                                    var address = place.formatted_address;
+                                    // Add the marker
+                                    addMarker(place.geometry.location, address);
+                                    // Update the coordinates
+                                    coordinates = place.geometry.location.lat() + ',' + place.geometry.location.lng();
+                                    
+                                    // Update the definition list
+                                    ddAddress.innerHTML = address;
+                                    ddCoordinates.innerHTML = coordinates;
+                                    console.log(place);
+                                    
+                                    if (place.vicinity) {
+                                        editedAddressInput.value = place.vicinity;
+                                    }else{
+                                        editedAddressInput.value = '';
+                                    }
+                                    
+                                    if (place.international_phone_number) {
+                                        phoneInput.value = place.international_phone_number;
+                                    }else{
+                                        phoneInput.value = '';
+                                    }                                    
+                                    if (place.website) {
+                                        webInput.value = place.website;
+                                    }else{
+                                        webInput.value = '';
+                                    }
+                                    
+                                    coordinatesAddressInput.value = JSON.stringify( {
+                                        coordinates: coordinates,
+                                        address: address,
+                                        editedAddress: editedAddressInput.value,
+                                        phone: phoneInput.value,
+                                        web: webInput.value
+                                    });
+                                    console.log(coordinatesAddressInput.value);
+                                }
+                                else
+                                {
+                                    alert("<?php _e("This address couldn't be found: ", 'acf-location-field'); ?>" + status);
+                                }
+                            });
+                        }
+                        else
+                        {
+                            alert("<?php _e("This address couldn't be found: ", 'acf-location-field'); ?>" + status);
+                        }
+                    });
+                }
 		function locateByCoordinates(coordinates){
 			latlngTemp = coordinates.split(',',2);
 			lat = parseFloat(latlngTemp[0]);
@@ -343,14 +370,40 @@ class acf_field_location extends acf_field
 			latlng = new google.maps.LatLng(lat,lng);
 			geocoder.geocode({'latLng':latlng},function(results,status){
 				if(status == google.maps.GeocoderStatus.OK){
-					address = results[0].formatted_address;addMarker(latlng,address);
-					coordinatesAddressInput.value = address+'|'+coordinates;ddAddress.innerHTML=address;ddCoordinates.innerHTML=coordinates
+					address = results[0].formatted_address;
+                                        addMarker(latlng,address);
+                                        editedAddressInput.value = address;
+					coordinatesAddressInput.value = JSON.stringify( {
+                                            coordinates: coordinates,
+                                            address: address,
+                                            editedAddress: address,
+                                            phone: phoneInput.value,
+                                            web: webInput.value
+                                        });
+                                        ddAddress.innerHTML=address;
+                                        ddCoordinates.innerHTML=coordinates
+                                        
+                                        
 				}
 				else{
-					alert("<?php _e("This place could not be found: ",'acf-location-field');?>"+status)
+					alert("<?php _e("This place could not be found: ",'acf-place-field');?>"+status)
 				}
 			})
 		}
+                
+                function onBlur(){
+                                coordinatesAddressInput.value = JSON.stringify( {
+                                        coordinates: coordinates,
+                                        address: address,
+                                        editedAddress: editedAddressInput.value,
+                                        phone: phoneInput.value,
+                                        web: webInput.value
+                                    });
+                                    ddAddress.innerHTML=address;
+                                    ddCoordinates.innerHTML=coordinates;
+                       
+		}
+                
 		var map,lat,lng,latlng,marker,coordinates,address,val;
 		var geocoder = new google.maps.Geocoder();
 		var ddAddress = document.getElementById('location_dd-address_'+uid);
@@ -358,14 +411,26 @@ class acf_field_location extends acf_field
 		var ddCoordinates = document.getElementById('location_dd-coordinates_'+uid);
 		var locationInput = document.getElementById('location_input_'+uid);
 		var location = locationInput.value;
-		var coordinatesAddressInput = document.getElementById('location_coordinates-address_'+uid);
+		var coordinatesAddressInput = document.getElementById('location_coordinates-address_'+uid);                
+                var editedAddressInput = document.getElementById('location_input_address_'+uid);
+                var phoneInput = document.getElementById('location_input_phone_'+uid);
+                var webInput = document.getElementById('location_input_web_'+uid);
+                
+                editedAddressInput.onblur = onBlur;
+                phoneInput.onblur = onBlur;
+                webInput.onblur = onBlur;
+                
 		var coordinatesAddress = coordinatesAddressInput.value;
 		if(coordinatesAddress){
-			var coordinatesAddressTemp = coordinatesAddress.split('|',2);
-			coordinates = coordinatesAddressTemp[1];
-			address = coordinatesAddressTemp[0]
-		}if(address){
-			ddAddress.innerHTML = address
+                        coordinatesAddress = jQuery.parseJSON(coordinatesAddress);			
+			coordinates = coordinatesAddress.coordinates;
+			address = coordinatesAddress.address;
+                        editedAddressInput.value = coordinatesAddress.editedAddress;
+                        phoneInput.value = coordinatesAddress.phone;
+                        webInput.value = coordinatesAddress.web;
+		}
+                if(address){
+			ddAddress.innerHTML = address;
 		}
 		if(coordinates){
 			ddCoordinates.innerHTML = coordinates;
@@ -396,6 +461,7 @@ class acf_field_location extends acf_field
 				}]
 		};
 		map = new google.maps.Map(document.getElementById('location_map_'+uid),mapOptions);
+                var places = new google.maps.places.PlacesService(map);
 		var mapdiv = document.getElementById('location_map_'+uid);
 		mapdiv.style.height = '<?php echo $mapheight; ?>px';
 		if(coordinates){
@@ -413,7 +479,7 @@ class acf_field_location extends acf_field
 						locateByCoordinates(location)
 					}
 					else{
-						locateByAddress(location)}
+						locateByPlace(location)}
 					}
 					event.stopPropagation();
 					event.preventDefault();
@@ -441,17 +507,23 @@ class acf_field_location extends acf_field
 		}
 	});
 </script>
-<input type="hidden" value="<?php echo $field['value']; ?>" id="location_coordinates-address_<?php echo $uid; ?>" name="<?php echo $field['name']; ?>"/>
-<input type="text" id="location_input_<?php echo $uid; ?>" placeholder="<?php _e('Search for a location','acf-location-field'); ?>" />
+<input type="hidden" value="<?php echo esc_attr($field['value']); ?>" id="location_coordinates-address_<?php echo $uid; ?>" name="<?php echo $field['name']; ?>"/>
+<input type="text" id="location_input_<?php echo $uid; ?>" placeholder="<?php _e('Search for a location','acf-place-field'); ?>" />
 <dl class="location_dl">
-	<dt class="location_dt-address" id="location_dt-address_<?php echo $uid; ?>" role="button" title="<?php _e('Find the complete address','acf-location-field'); ?>"><?php _e('Address: ','acf-location-field'); ?></dt>
+	<dt class="location_dt-address" id="location_dt-address_<?php echo $uid; ?>" role="button" title="<?php _e('Find the complete address','acf-place-field'); ?>"><?php _e('Address: ','acf-place-field'); ?></dt>
 	<dd class="location_dd" id="location_dd-address_<?php echo $uid; ?>">&nbsp;</dd>
-	<dt class="location_dt-coordinates"><?php _e('Coordinates: ','acf-location-field'); ?></dt>
+	<dt class="location_dt-coordinates"><?php _e('Coordinates: ','acf-place-field'); ?></dt>
 	<dd class="location_dd" id="location_dd-coordinates_<?php echo $uid; ?>">&nbsp;</dd>
 </dl>
 <div class="location_map-container">
 	<div class="location_map" id="location_map_<?php echo $uid; ?>"></div>
 </div>
+<p class="label"><label for="location_input_address_<?php echo $uid; ?>"><?php _e('Edited address','acf-place-field'); ?></label></p>
+<input type="text" id="location_input_address_<?php echo $uid; ?>" placeholder="C/..."/>
+<p class="label"><label for="location_input_phone_<?php echo $uid; ?>"><?php _e('Phone','acf-place-field'); ?></label></p>
+<input type="text" id="location_input_phone_<?php echo $uid; ?>" placeholder="+34 555..."/>
+<p class="label"><label for="location_input_web_<?php echo $uid; ?>"><?php _e('Web','acf-place-field'); ?></label></p>
+<input type="text" id="location_input_web_<?php echo $uid; ?>" placeholder="http://..." />
 		<?php
 	}
 
@@ -473,34 +545,12 @@ class acf_field_location extends acf_field
 	function format_value_for_api( $value, $post_id, $field )
 	{
 		// defaults
-		$field = array_merge($this->defaults, $field);
-	
-
+		$field = array_merge($this->defaults, $field);        
 		// format value
-		$value = explode('|', $value);
-		
-
-    // check that we have a value
-    $value = array_filter( $value );
-    if ( empty ($value ) ) return '';
-
-		if( $field['val'] == 'address' )
-		{
-			$value = array( 'coordinates' => $value[1], 'address' => $value[0] );
-		}
-		else
-		{
-			$value = $value[1];
-		}
-	
-		return $value;
-				
-	}
-	
+		$value = json_decode($value,true);		                                
+                return $value;
+        }
 }
 
-
 // create field
-new acf_field_location();
-
-?>
+new acf_field_place();

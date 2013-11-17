@@ -63,7 +63,7 @@
 						}
 						else 
 						{
-							alert("<?php _e("This address couldn't be found: ",'acf-location-field'); ?>" + status);
+							alert("<?php _e("This address couldn't be found: ",'acf-place-field'); ?>" + status);
 						}
 					});
 				}
@@ -96,7 +96,7 @@
 						} 
 						else 
 						{
-							alert("<?php _e("This place couldn't be found: ",'acf-location-field'); ?>" + status);
+							alert("<?php _e("This place couldn't be found: ",'acf-place-field'); ?>" + status);
 						}
 					});
 				}

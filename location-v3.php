@@ -11,7 +11,7 @@ if( !class_exists( 'ACF_Location_Field' ) && class_exists( 'acf_Field' ) ) :
  *
  */
 
-class acf_field_location extends acf_Field
+class acf_field_place extends acf_Field
 {
 
 
@@ -32,8 +32,8 @@ class acf_field_location extends acf_Field
     	parent::__construct($parent);
 
     	// set name / title
-    	$this->name = 'location-field'; // variable name (no spaces / special characters / etc)
-		$this->title = __( 'Location', 'acf-location-field' ); // field label (Displayed in edit screens)
+    	$this->name = 'place-field'; // variable name (no spaces / special characters / etc)
+		$this->title = __( 'Location', 'acf-place-field' ); // field label (Displayed in edit screens)
 
 		add_action( 'admin_print_scripts', array( &$this, 'admin_print_scripts' ), 12, 0 );
 		add_action( 'admin_print_styles',  array( &$this, 'admin_print_styles' ),  12, 0 );
@@ -74,22 +74,22 @@ class acf_field_location extends acf_Field
 	public function admin_print_styles()
 	{
 		global $pagenow;
-		wp_register_style( 'acf-location-field', plugins_url( 'css/input.css', __FILE__ ) );
+		wp_register_style( 'acf-place-field', plugins_url( 'css/input.css', __FILE__ ) );
 
 		if( in_array( $pagenow, array( 'post.php', 'post-new.php', 'admin.php' ) ) )
 		{
-			wp_enqueue_style( 'acf-location-field' );
+			wp_enqueue_style( 'acf-place-field' );
 		}
 	}
 
 	public function admin_print_scripts()
 	{
 		global $pagenow;
-		//wp_register_script( 'acf-location-field', $this->base_uri_abs . '/js/script.js', array( 'jquery' ) );
+		//wp_register_script( 'acf-place-field', $this->base_uri_abs . '/js/script.js', array( 'jquery' ) );
 
 		if( in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) )
 		{
-			//wp_enqueue_script( 'acf-location-field' );
+			//wp_enqueue_script( 'acf-place-field' );
 		}
 	}
 
@@ -135,8 +135,8 @@ class acf_field_location extends acf_Field
 		?>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label><?php _e('Map address','acf-location-field'); ?></label>
-				<p class="description"><?php _e('Return the address along with the coordinates.','acf-location-field'); ?></p>
+				<label><?php _e('Map address','acf-place-field'); ?></label>
+				<p class="description"><?php _e('Return the address along with the coordinates.','acf-place-field'); ?></p>
 			</td>
 			<td>
 				<?php
@@ -146,8 +146,8 @@ class acf_field_location extends acf_Field
 					'value' => $field['val'],
 					'layout' => 'horizontal',
 					'choices' => array(
-						'address' => __('Yes', 'acf-location-field'),
-						'coordinates' => __('No', 'acf-location-field')
+						'address' => __('Yes', 'acf-place-field'),
+						'coordinates' => __('No', 'acf-place-field')
 					)
 				));
 				?>
@@ -155,8 +155,8 @@ class acf_field_location extends acf_Field
 		</tr>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label><?php _e('Map center','acf-location-field'); ?></label>
-				<p class="description"><?php _e('Latitude and longitude to center the initial map.','acf-location-field'); ?></p>
+				<label><?php _e('Map center','acf-place-field'); ?></label>
+				<p class="description"><?php _e('Latitude and longitude to center the initial map.','acf-place-field'); ?></p>
 			</td>
 			<td>
 				<?php
@@ -170,7 +170,7 @@ class acf_field_location extends acf_Field
 		</tr>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label><?php _e('Map zoom','acf-location-field'); ?></label>
+				<label><?php _e('Map zoom','acf-place-field'); ?></label>
 				<p class="description"></p>
 			</td>
 			<td>
@@ -185,8 +185,8 @@ class acf_field_location extends acf_Field
 		</tr>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label><?php _e('Map Scrollwheel','acf-location-field'); ?></label>
-				<p class="description"><?php _e('Allows scrollwheel zooming on the map field','acf-location-field'); ?></p>
+				<label><?php _e('Map Scrollwheel','acf-place-field'); ?></label>
+				<p class="description"><?php _e('Allows scrollwheel zooming on the map field','acf-place-field'); ?></p>
 			</td>
 			<td>
 				<?php
@@ -196,8 +196,8 @@ class acf_field_location extends acf_Field
 					'value' => $field['scrollwheel'],
 					'layout' => 'horizontal',
 					'choices' => array(
-						'1' => __('Yes', 'acf-location-field'),
-						'0' => __('No', 'acf-location-field')
+						'1' => __('Yes', 'acf-place-field'),
+						'0' => __('No', 'acf-place-field')
 					)
 				));
 				?>
@@ -271,7 +271,7 @@ class acf_field_location extends acf_Field
 						ddCoordinates.innerHTML = coordinates
 					}
 					else{
-						alert("<?php _e("This address could not be found: ",'acf-location-field');?>"+status)
+						alert("<?php _e("This address could not be found: ",'acf-place-field');?>"+status)
 					}
 				})
 			}
@@ -286,7 +286,7 @@ class acf_field_location extends acf_Field
 						coordinatesAddressInput.value = address+'|'+coordinates;ddAddress.innerHTML=address;ddCoordinates.innerHTML=coordinates
 					}
 					else{
-						alert("<?php _e("This place could not be found: ",'acf-location-field');?>"+status)
+						alert("<?php _e("This place could not be found: ",'acf-place-field');?>"+status)
 					}
 				})
 			}
@@ -366,11 +366,11 @@ class acf_field_location extends acf_Field
 		});
 	</script>
 	<input type="hidden" value="<?php echo $field['value']; ?>" id="location_coordinates-address_<?php echo $uid; ?>" name="<?php echo $field['name']; ?>"/>
-	<input type="text" id="location_input_<?php echo $uid; ?>" placeholder="<?php _e('Search for a location','acf-location-field'); ?>" />
+	<input type="text" id="location_input_<?php echo $uid; ?>" placeholder="<?php _e('Search for a location','acf-place-field'); ?>" />
 	<dl class="location_dl">
-		<dt class="location_dt-address" id="location_dt-address_<?php echo $uid; ?>" role="button" title="<?php _e('Find the complete address','acf-location-field'); ?>"><?php _e('Address: ','acf-location-field'); ?></dt>
+		<dt class="location_dt-address" id="location_dt-address_<?php echo $uid; ?>" role="button" title="<?php _e('Find the complete address','acf-place-field'); ?>"><?php _e('Address: ','acf-place-field'); ?></dt>
 		<dd class="location_dd" id="location_dd-address_<?php echo $uid; ?>">&nbsp;</dd>
-		<dt class="location_dt-coordinates"><?php _e('Coordinates: ','acf-location-field'); ?></dt>
+		<dt class="location_dt-coordinates"><?php _e('Coordinates: ','acf-place-field'); ?></dt>
 		<dd class="location_dd" id="location_dd-coordinates_<?php echo $uid; ?>">&nbsp;</dd>
 	</dl>
 	<div class="location_map-container">

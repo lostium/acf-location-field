@@ -1,17 +1,18 @@
 <?php
 
 /*
-Plugin Name: Advanced Custom Fields: Location Field
-Plugin URI: https://github.com/elliotcondon/acf-location-field
-Description: Adds a Location field to Advanced Custom Fields. This field allows you to find addresses and coordinates of a desired location.
+Plugin Name: Advanced Custom Fields: Place Field
+Plugin URI: https://github.com/lostium/acf-place-field
+Description: Adds a Place field to Advanced Custom Fields. This field allows you to find places, address and coordinates of a desired place.
 Version: 1.0.0
 Author: Elliot Condon
+Author: Lostium Project
 Author URI: http://advancedcustomfields.com/
 License: GPL
 */
 
 
-class acf_field_location_plugin
+class acf_field_place_plugin
 {
 	/*
 	*  Construct
@@ -24,7 +25,7 @@ class acf_field_location_plugin
 	function __construct()
 	{
 		// set text domain
-		$domain = 'acf-location-field';
+		$domain = 'acf-place-field';
 		$mofile = trailingslashit(dirname(__File__)) . 'lang/' . $domain . '-' . get_locale() . '.mo';
 		load_textdomain( $domain, $mofile );
 		
@@ -50,7 +51,7 @@ class acf_field_location_plugin
 	{
 		if(function_exists('register_field'))
 		{ 
-			register_field('acf_field_location', dirname(__File__) . '/location-v3.php');
+			register_field('acf_field_place', dirname(__File__) . '/location-v3.php');
 		}
 	}
 	
@@ -69,7 +70,7 @@ class acf_field_location_plugin
 	
 }
 
-new acf_field_location_plugin();
+new acf_field_place_plugin();
 
 		
 ?>
